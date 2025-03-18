@@ -24,17 +24,19 @@ answers = [
 # Índice de la respuesta correcta para cada pregunta, el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
 puntaje = 0;
-# El usuario deberá contestar 3 preguntas
-for _ in range(3):
+
+#Selecciona k preguntas al azar junto al indice de su rta correcta y las respuestas disponibles
+questions_to_ask = random.choices(list(zip(questions,
+answers, correct_answers_index)), k=3)
+
+# Itera sobre la tupla creada anteriormente
+
+for answer,answer_list, correct_index in questions_to_ask:
     
-    # Se selecciona una pregunta aleatoria
-    question_index = random.randint(0, len(questions) - 1)
-    
-    # Se muestra la pregunta y las respuestas posibles
-    print(questions[question_index])
-    
-    for i, answer in enumerate(answers[question_index]):
-        print(f"{i + 1}. {answer}")
+    #Imprimo la pregunta con sus opciones
+    print(f"Pregunta: {answer}")
+    for i, rta in enumerate(answer_list):
+        print(f"{i+1}. {rta}")
     
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
@@ -47,7 +49,7 @@ for _ in range(3):
             
         user_answer= int(user_answer) -1;
             
-        if user_answer == correct_answers_index[question_index]:
+        if user_answer == correct_index:
             print("¡Correcto!")
             puntaje+=1
             break
@@ -56,7 +58,7 @@ for _ in range(3):
             puntaje= puntaje - 0.5
 # Si el usuario no responde correctamente después dE 2 intentos, se muestra la respuesta correcta
     print(" La respuesta correcta es:")
-    print(answers[question_index] [correct_answers_index[question_index]])
+    print(answer_list[correct_index])
 print("el puntaje conseguido fue de: "+ f"{puntaje}");     
 # Se imprime un blanco al final de la pregunta
 print()
