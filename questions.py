@@ -26,7 +26,7 @@ correct_answers_index = [1, 2, 0, 3, 1]
 puntaje = 0;
 
 #Selecciona k preguntas al azar junto al indice de su rta correcta y las respuestas disponibles
-questions_to_ask = random.choices(list(zip(questions,
+questions_to_ask = random.sample(list(zip(questions,
 answers, correct_answers_index)), k=3)
 
 # Itera sobre la tupla creada anteriormente
@@ -50,12 +50,13 @@ for answer,answer_list, correct_index in questions_to_ask:
         user_answer= int(user_answer) -1;
             
         if user_answer == correct_index:
-            print("¡Correcto!")
             puntaje+=1
+            print("¡Correcto!, sumaste 1 punto de recompensa y tu acumulado es de: " + f"{puntaje}")
             break
         else:
-            print ("Respuesta incorrecta")
             puntaje= puntaje - 0.5
+            print ("Respuesta incorrecta!! Restaste 0.5 de tu acumulado y tu actual es: " + f"{puntaje}")
+            
 # Si el usuario no responde correctamente después dE 2 intentos, se muestra la respuesta correcta
     print(" La respuesta correcta es:")
     print(answer_list[correct_index])
